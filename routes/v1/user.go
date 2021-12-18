@@ -2,11 +2,14 @@ package v1
 
 import (
 	usercontroller "github.com/conan080262/gin-basic-api.git/controllers/user"
+	"github.com/conan080262/gin-basic-api.git/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
-func InitUserRoutes(rg *gin.RouterGroup) { //1.22.05
+func InitUserRoutes(rg *gin.RouterGroup) { //
+	// routerGroup := rg.Group("/users").Use(middlewares.AuthJWT())
 	routerGroup := rg.Group("/users")
+
 	// users(routerGroup.Group("/test"))
 	// {{domain_url}}/api/v1/users
 	routerGroup.GET("/", usercontroller.GetAll)
@@ -18,6 +21,8 @@ func InitUserRoutes(rg *gin.RouterGroup) { //1.22.05
 	routerGroup.GET("/:id", usercontroller.GetById)
 	// {{domain_url}}/api/v1/users/search?fullname=jon&id=2 //Param
 	routerGroup.GET("/search", usercontroller.SearchByFullname)
+
+	routerGroup.GET("/me", middlewares.AuthJWT(), usercontroller.GetProfile)
 }
 
 // func users(rg *gin.RouterGroup) {
