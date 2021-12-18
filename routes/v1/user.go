@@ -5,11 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitUserRoutes(rg *gin.RouterGroup) {
+func InitUserRoutes(rg *gin.RouterGroup) { //1.22.05
 	routerGroup := rg.Group("/users")
-
 	// users(routerGroup.Group("/test"))
-
 	// {{domain_url}}/api/v1/users
 	routerGroup.GET("/", usercontroller.GetAll)
 	// {{domain_url}}/api/v1/users/register
@@ -20,7 +18,6 @@ func InitUserRoutes(rg *gin.RouterGroup) {
 	routerGroup.GET("/:id", usercontroller.GetById)
 	// {{domain_url}}/api/v1/users/search?fullname=jon&id=2 //Param
 	routerGroup.GET("/search", usercontroller.SearchByFullname)
-
 }
 
 // func users(rg *gin.RouterGroup) {

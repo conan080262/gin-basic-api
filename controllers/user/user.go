@@ -1,6 +1,12 @@
 package usercontroller
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/conan080262/gin-basic-api.git/configs"
+	"github.com/conan080262/gin-basic-api.git/models"
+	"github.com/gin-gonic/gin"
+)
 
 func GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
@@ -10,8 +16,33 @@ func GetAll(c *gin.Context) {
 }
 
 func Register(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"data": "register",
+	var inputJson InputRegister
+	if err := c.ShouldBindJSON(&inputJson); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	user := models.User{
+		Fullname: inputJson.Fullname,
+		Email:    inputJson.Email,
+		Password: inputJson.Password,
+	}
+
+	result := configs.DB.Debug().Create(&user)
+
+	if result.Error != nil {
+		if result.RowsAffected == 0 {
+
+		} else if result.RowsAffected == 1 {
+
+		}
+		c.JSON(http.StatusBadRequest, gin.H{"error": result.Error})
+		return
+	}
+
+	c.JSON(201, gin.H{
+		"data": user,
+		"row":  result.RowsAffected,
 	})
 }
 

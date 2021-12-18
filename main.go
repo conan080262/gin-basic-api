@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 
+	"github.com/conan080262/gin-basic-api.git/configs"
 	v1 "github.com/conan080262/gin-basic-api.git/routes/v1"
 	"github.com/gin-gonic/gin"
 )
@@ -15,8 +16,8 @@ func main() {
 }
 
 func SetupRouter() *gin.Engine {
+	configs.Connection()
 	router := gin.Default()
-
 	apiV1 := router.Group("/api/v1")
 	v1.InitHomeRoutes(apiV1)
 	v1.InitUserRoutes(apiV1)
