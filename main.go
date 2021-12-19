@@ -12,6 +12,7 @@ import (
 
 func main() {
 	//p4.2:41:18
+
 	router := SetupRouter()
 	router.Run(":" + os.Getenv("GO_PORT")) // listen and serve on 0.0.0.0:8080 http://127.0.0.1:3001/ http://localhost:3001
 	//gin -a 3002 -p 3000
@@ -20,6 +21,7 @@ func main() {
 func SetupRouter() *gin.Engine {
 	//Load .env
 	godotenv.Load(".env")
+	// gin.SetMode(gin.ReleaseMode)
 
 	configs.Connection()
 	router := gin.Default()
