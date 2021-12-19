@@ -24,7 +24,7 @@ func GetAll(c *gin.Context) {
 	// SELECT * FROM "blogs" WHERE "blogs"."user_id" = 10
 	// SELECT * FROM "users" WHERE id = 10
 
-	configs.DB.Debug().Preload("Blogs").Where("id = ?", 10).Find(&users)
+	configs.DB.Debug().Preload("Blogs").Find(&users)
 	c.JSON(200, gin.H{
 		"data": users,
 	})
