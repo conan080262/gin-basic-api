@@ -22,7 +22,7 @@ func Connection() {
 	fmt.Println("DB Connect Successfully")
 
 	// Migration
-	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.User{}, &models.Blog{})
 
 	DB = db
 }

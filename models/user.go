@@ -15,6 +15,7 @@ type User struct {
 	Password  string `json:"-" gorm:"type:varchar(255);not null"`
 	Address   string
 	IsAdmin   bool      `json:"is_admin" gorm:"type:bool;default:false"` // map with is_active use column:is_active
+	Blogs     []Blog    `json:"blogs" gorm:"foreignKey:UserID;references:ID"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }

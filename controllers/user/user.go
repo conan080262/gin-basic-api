@@ -16,9 +16,15 @@ import (
 func GetAll(c *gin.Context) {
 
 	var users []models.User
-	configs.DB.Find(&users)
+	// configs.DB.Find(&users)
 	// configs.DB.Select("id").Find(&users)
 	// configs.DB.Raw("select * from users order by id desc").Scan(&users)
+
+	// configs.DB.Debug().Preload("Blogs").Where("id = ?", 10).Find(&users)
+	// SELECT * FROM "blogs" WHERE "blogs"."user_id" = 10
+	// SELECT * FROM "users" WHERE id = 10
+
+	configs.DB.Debug().Preload("Blogs").Where("id = ?", 10).Find(&users)
 	c.JSON(200, gin.H{
 		"data": users,
 	})
